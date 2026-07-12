@@ -5,6 +5,7 @@ import ServicesProviders from '../pages/super-admin/ServicesProviders';
 import Appointments from '../pages/super-admin/Appointments';
 import NotificationMessages from '../pages/super-admin/NotificationMessages';
 import Billing from '../pages/super-admin/Billing';
+import OurServices from '../pages/super-admin/OurServices';
 
 export function AppRoutes() {
     return (
@@ -15,6 +16,7 @@ export function AppRoutes() {
             <Route path="/appointments" element={<Appointments />} />
             <Route path="/notification-messages" element={<NotificationMessages />} />
             <Route path="/billing" element={<Billing />} />
+            <Route path="/our-services" element={<OurServices />} />
             
         </Routes>
     );

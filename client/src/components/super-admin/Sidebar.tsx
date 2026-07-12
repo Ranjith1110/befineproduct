@@ -12,6 +12,7 @@ import { Button } from '../ui/Button';
 const menuItems = [
     { name: 'Overview', icon: Activity, path: '/' },
     { name: 'Clients', icon: Users, path: '/clients' },
+    { name: 'Our Services', icon: Heart, path: '/our-services' },
     { name: 'Services Providers', icon: Heart, path: '/services-providers' },
     { name: 'Appointments', icon: Calendar, path: '/appointments' },
     { name: 'Notification Messages', icon: Calendar, path: '/notification-messages' },
