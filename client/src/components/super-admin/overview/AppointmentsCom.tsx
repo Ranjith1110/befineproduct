@@ -5,11 +5,8 @@ import {
     Filter,
     ChevronLeft,
     ChevronRight,
-    Calendar as CalendarIcon,
-    Clock,
     MapPin,
     User,
-    MoreVertical
 } from 'lucide-react';
 import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';

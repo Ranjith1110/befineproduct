@@ -5,11 +5,6 @@ import {
     Heart,
     Calendar,
     ShieldCheck,
-    MessageSquare,
-    Bell,
-    BarChart2,
-    FileText,
-    CheckCircle,
     X
 } from 'lucide-react';
 import { Button } from '../ui/Button';
