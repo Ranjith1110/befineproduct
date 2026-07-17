@@ -1,4 +1,4 @@
-import ClientCom from '../../components/super-admin/overview/ClientCom';
+import ClientCom from '../../components/super-admin/clients/ClientCom';
 import { SuperAdminLayout } from '../../layouts/SuperAdminLayout';
 
 

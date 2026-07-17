@@ -1,4 +1,4 @@
-import AppointmentsCom from '../../components/super-admin/overview/AppointmentsCom';
+import AppointmentsCom from '../../components/super-admin/appointments/AppointmentsCom';
 import { SuperAdminLayout } from '../../layouts/SuperAdminLayout';
 
 

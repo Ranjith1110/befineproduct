@@ -1,4 +1,4 @@
-import ServicesProvidersCom from '../../components/super-admin/overview/ServicesProvidersCom';
+import ServicesProvidersCom from '../../components/super-admin/service-provider/ServicesProvidersCom';
 import { SuperAdminLayout } from '../../layouts/SuperAdminLayout';
 
 

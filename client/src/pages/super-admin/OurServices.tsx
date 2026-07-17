@@ -1,4 +1,4 @@
-import OurServicesCom from '../../components/super-admin/overview/OurServicesCom';
+import OurServicesCom from '../../components/super-admin/our-services/OurServicesCom';
 import { SuperAdminLayout } from '../../layouts/SuperAdminLayout';
 
 

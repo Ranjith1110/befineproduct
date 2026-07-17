@@ -74,57 +74,57 @@ const AppointmentsCom = () => {
     };
 
     return (
-        <div className="flex flex-col gap-6 max-w-[1400px] mx-auto w-full h-[calc(100vh-140px)]">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="flex flex-col gap-4 max-w-[1400px] mx-auto w-full h-[calc(100vh-100px)]">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900 font-heading tracking-tight mb-1">
+                    <h1 className="text-2xl font-bold text-slate-900 font-heading tracking-tight mb-0">
                         Appointments
                     </h1>
-                    <p className="text-sm font-medium text-slate-500">
+                    <p className="text-xs font-medium text-slate-500">
                         Manage and schedule all client and provider visits.
                     </p>
                 </div>
-                <div className="flex items-center gap-3">
-                    <div className="w-64">
+                <div className="flex items-center gap-2">
+                    <div className="w-56">
                         <Input
                             placeholder="Search appointments..."
-                            leftIcon={<Search size={18} />}
-                            className="bg-white"
+                            leftIcon={<Search size={16} />}
+                            className="bg-white text-sm h-9"
                         />
                     </div>
-                    <Button variant="outline" leftIcon={<Filter size={18} />}>
+                    <Button variant="outline" size="sm" leftIcon={<Filter size={14} />}>
                         Filter
                     </Button>
-                    <Button leftIcon={<Plus size={18} strokeWidth={2.5} />}>
+                    <Button size="sm" leftIcon={<Plus size={16} strokeWidth={2.5} />}>
                         New Appointment
                     </Button>
                 </div>
             </div>
 
-            <div className="flex flex-col lg:flex-row gap-6 h-full overflow-hidden">
-                <div className="flex-1 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col overflow-hidden">
-                    <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-                        <div className="flex items-center gap-4">
-                            <h2 className="text-xl font-bold text-slate-800">July 2026</h2>
+            <div className="flex flex-col lg:flex-row gap-4 h-full overflow-hidden">
+                <div className="flex-1 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col overflow-hidden">
+                    <div className="p-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                        <div className="flex items-center gap-3">
+                            <h2 className="text-lg font-bold text-slate-800">July 2026</h2>
                             <div className="flex items-center gap-1">
-                                <button className="p-1.5 rounded-lg text-slate-400 hover:text-primary hover:bg-white border border-transparent hover:border-slate-200 shadow-sm transition-all">
-                                    <ChevronLeft size={20} />
+                                <button className="p-1 rounded-md text-slate-400 hover:text-primary hover:bg-white border border-transparent hover:border-slate-200 shadow-sm transition-all">
+                                    <ChevronLeft size={18} />
                                 </button>
-                                <button className="p-1.5 rounded-lg text-slate-400 hover:text-primary hover:bg-white border border-transparent hover:border-slate-200 shadow-sm transition-all">
-                                    <ChevronRight size={20} />
+                                <button className="p-1 rounded-md text-slate-400 hover:text-primary hover:bg-white border border-transparent hover:border-slate-200 shadow-sm transition-all">
+                                    <ChevronRight size={18} />
                                 </button>
                             </div>
-                            <Button variant="ghost" size="sm" className="bg-white border border-slate-200 shadow-sm ml-2">
+                            <Button variant="ghost" size="sm" className="bg-white border border-slate-200 shadow-sm ml-1 h-7 text-xs px-2.5">
                                 Today
                             </Button>
                         </div>
 
-                        <div className="flex bg-slate-100 p-1 rounded-xl">
+                        <div className="flex bg-slate-100 p-1 rounded-lg">
                             {(['day', 'week', 'month', 'year'] as const).map((v) => (
                                 <button
                                     key={v}
                                     onClick={() => setView(v)}
-                                    className={`px-4 py-1.5 rounded-lg text-sm font-semibold capitalize transition-all ${view === v
+                                    className={`px-3 py-1 rounded-md text-xs font-semibold capitalize transition-all ${view === v
                                             ? 'bg-white text-primary shadow-sm'
                                             : 'text-slate-500 hover:text-slate-700'
                                         }`}
@@ -138,33 +138,33 @@ const AppointmentsCom = () => {
                     <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-full">
                         <div className="grid grid-cols-7 border-b border-slate-100 bg-white sticky top-0 z-10">
                             {weekDays.map((day) => (
-                                <div key={day} className="py-3 text-center text-xs font-bold text-slate-500 uppercase tracking-wider border-r border-slate-100 last:border-r-0">
+                                <div key={day} className="py-2 text-center text-[10px] font-bold text-slate-500 uppercase tracking-wider border-r border-slate-100 last:border-r-0">
                                     {day}
                                 </div>
                             ))}
                         </div>
 
-                        <div className="grid grid-cols-7 auto-rows-[minmax(120px,_1fr)]">
+                        <div className="grid grid-cols-7 auto-rows-[minmax(100px,_1fr)]">
                             {calendarDays.map((day, i) => (
                                 <div
                                     key={i}
-                                    className={`border-r border-b border-slate-100 p-2 transition-colors hover:bg-slate-50/50 flex flex-col gap-1 ${!day.isCurrentMonth ? 'bg-slate-50/30' : ''
+                                    className={`border-r border-b border-slate-100 p-1.5 transition-colors hover:bg-slate-50/50 flex flex-col gap-1 ${!day.isCurrentMonth ? 'bg-slate-50/30' : ''
                                         }`}
                                 >
-                                    <div className={`text-sm font-bold w-7 h-7 flex items-center justify-center rounded-full ${day.date === 23 && day.isCurrentMonth
+                                    <div className={`text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full ${day.date === 23 && day.isCurrentMonth
                                             ? 'bg-primary text-white shadow-sm shadow-primary/30'
                                             : day.isCurrentMonth ? 'text-slate-700' : 'text-slate-400'
                                         }`}>
                                         {day.date}
                                     </div>
-                                    <div className="flex flex-col gap-1.5 mt-1 overflow-y-auto scrollbar-hide">
+                                    <div className="flex flex-col gap-1 mt-0.5 overflow-y-auto scrollbar-hide">
                                         {day.events.map((event, index) => (
                                             <div
                                                 key={index}
-                                                className={`px-2.5 py-1.5 rounded-md border text-xs font-semibold cursor-pointer transition-transform hover:scale-[1.02] ${getEventStyles(event.type)}`}
+                                                className={`px-2 py-1 rounded-md border text-[10px] font-semibold cursor-pointer transition-transform hover:scale-[1.02] ${getEventStyles(event.type)}`}
                                             >
                                                 <div className="truncate">{event.title}</div>
-                                                <div className="text-[10px] font-medium opacity-80 mt-0.5">{event.time}</div>
+                                                <div className="text-[9px] font-medium opacity-80 mt-0.5">{event.time}</div>
                                             </div>
                                         ))}
                                     </div>
@@ -174,31 +174,31 @@ const AppointmentsCom = () => {
                     </div>
                 </div>
 
-                <div className="w-full lg:w-80 flex flex-col gap-4">
-                    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex-1 overflow-hidden flex flex-col">
-                        <div className="flex items-center justify-between mb-6">
-                            <h3 className="font-bold text-slate-800 text-lg">Today's Agenda</h3>
+                <div className="w-full lg:w-72 flex flex-col gap-4">
+                    <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 flex-1 overflow-hidden flex flex-col">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="font-bold text-slate-800 text-base">Today's Agenda</h3>
                             <Badge variant="primary">4 Events</Badge>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto pr-2 space-y-6 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-full">
+                        <div className="flex-1 overflow-y-auto pr-2 space-y-4 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-full">
                             {todaySchedule.map((schedule, index) => (
-                                <div key={schedule.id} className="relative pl-6">
-                                    <div className="absolute left-0 top-1.5 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-primary/10"></div>
+                                <div key={schedule.id} className="relative pl-5">
+                                    <div className="absolute left-0 top-1 w-2 h-2 rounded-full bg-primary ring-4 ring-primary/10"></div>
                                     {index !== todaySchedule.length - 1 && (
-                                        <div className="absolute left-1 top-4 w-0.5 h-full bg-slate-100"></div>
+                                        <div className="absolute left-[3px] top-4 w-0.5 h-full bg-slate-100"></div>
                                     )}
 
-                                    <div className="flex flex-col gap-1">
-                                        <span className="text-xs font-bold text-primary">{schedule.time}</span>
-                                        <div className={`p-3.5 rounded-xl border mt-1 ${getEventStyles(schedule.type)}`}>
-                                            <div className="font-bold text-sm mb-2">{schedule.title}</div>
-                                            <div className="flex items-center gap-2 text-xs font-medium opacity-80 mb-1.5">
-                                                <User size={12} />
+                                    <div className="flex flex-col gap-0.5">
+                                        <span className="text-[10px] font-bold text-primary">{schedule.time}</span>
+                                        <div className={`p-2.5 rounded-lg border mt-1 ${getEventStyles(schedule.type)}`}>
+                                            <div className="font-bold text-xs mb-1.5">{schedule.title}</div>
+                                            <div className="flex items-center gap-1.5 text-[10px] font-medium opacity-80 mb-1">
+                                                <User size={10} />
                                                 {schedule.client}
                                             </div>
-                                            <div className="flex items-center gap-2 text-xs font-medium opacity-80">
-                                                <MapPin size={12} />
+                                            <div className="flex items-center gap-1.5 text-[10px] font-medium opacity-80">
+                                                <MapPin size={10} />
                                                 {schedule.provider}
                                             </div>
                                         </div>
@@ -208,7 +208,7 @@ const AppointmentsCom = () => {
                         </div>
                     </div>
 
-                    <Button variant="secondary" className="w-full justify-between" rightIcon={<ChevronRight size={18} />}>
+                    <Button variant="secondary" size="sm" className="w-full justify-between" rightIcon={<ChevronRight size={16} />}>
                         View Upcoming Week
                     </Button>
                 </div>

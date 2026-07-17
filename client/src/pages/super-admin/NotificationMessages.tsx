@@ -1,4 +1,4 @@
-import NotificationMessagesCom from '../../components/super-admin/overview/NotificationMessagesCom';
+import NotificationMessagesCom from '../../components/super-admin/notifications/NotificationMessagesCom';
 import { SuperAdminLayout } from '../../layouts/SuperAdminLayout';
 
 const NotificationMessages = () => {
