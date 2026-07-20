@@ -1,4 +1,4 @@
-import BillingCom from '../../components/super-admin/billing/BillingCom';
+import BillingCom from '../../components/super-admin/billing/SuperAdminBillingCom';
 import { SuperAdminLayout } from '../../layouts/SuperAdminLayout';
 
 const Billing = () => {

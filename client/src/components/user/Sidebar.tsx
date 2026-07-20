@@ -1,26 +1,20 @@
 import { NavLink } from 'react-router-dom';
 import {
-    Activity,
-    Users,
+    LayoutDashboard,
+    Star,
     Heart,
-    Calendar,
-    ShieldCheck,
-    X,
-    Layers,
-    UserCheck
+    Home,
+    ClipboardList,
+    X
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 
 const menuItems = [
-    { name: 'Overview', icon: Activity, path: '/' },
-    { name: 'Clients', icon: Users, path: '/super-admin/clients' },
-    { name: 'Our Services', icon: Heart, path: '/super-admin/our-services' },
-    { name: 'Services Providers', icon: Heart, path: '/super-admin/services-providers' },
-    { name: 'Appointments', icon: Calendar, path: '/super-admin/appointments' },
-    { name: 'Notification Messages', icon: Calendar, path: '/super-admin/notification-messages' },
-    { name: 'Billing', icon: ShieldCheck, path: '/super-admin/billing' },
-    { name: 'Subscription', icon: Layers, path: '/super-admin/subscription' },
-    { name: 'Care Manager', icon: UserCheck, path: '/super-admin/care-manager' },
+    { name: 'Dashboard', icon: LayoutDashboard, path: '/user/dashboard' },
+    { name: 'Sponsored Services', icon: Star, path: '/user/sponsored-services' },
+    { name: 'Care Services', icon: Heart, path: '/user/care-services' },
+    { name: 'Home Care Services', icon: Home, path: '/user/home-care-services' },
+    { name: 'My Records', icon: ClipboardList, path: '/user/my-records' },
 ];
 
 interface SidebarProps {
@@ -62,13 +56,13 @@ export function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
                 <div className="px-5 py-3 flex items-center gap-3 mb-1">
                     <img
-                        src="https://i.pravatar.cc/150?img=47"
-                        alt="Ranjith"
+                        src="https://i.pravatar.cc/150?img=1"
+                        alt="User Profile"
                         className="w-[40px] h-[40px] rounded-full object-cover"
                     />
                     <div className="flex flex-col">
-                        <span className="text-[14px] font-semibold text-slate-800 tracking-tight">Ranjith</span>
-                        <span className="text-[11px] font-bold text-primary">Super Admin</span>
+                        <span className="text-[14px] font-semibold text-slate-800 tracking-tight">Eleanor Pena</span>
+                        <span className="text-[11px] font-bold text-primary">Active Client</span>
                     </div>
                 </div>
 
