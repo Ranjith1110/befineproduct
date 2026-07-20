@@ -3,7 +3,6 @@ import {
     Search,
     Filter,
     Plus,
-    Receipt,
     Calendar,
     IndianRupee,
     Download,

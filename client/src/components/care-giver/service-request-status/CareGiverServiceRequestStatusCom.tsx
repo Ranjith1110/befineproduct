@@ -5,14 +5,12 @@ import {
     Calendar,
     Clock,
     MapPin,
-    ClipboardList,
     CheckCircle2,
     Activity,
     X,
     Check,
     MoreVertical,
     FileText,
-    HeartPulse,
     AlertCircle
 } from 'lucide-react';
 import { Button } from '../../ui/Button';

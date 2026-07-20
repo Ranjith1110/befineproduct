@@ -7,7 +7,6 @@ import {
   CheckCircle2,
   MapPin,
   ArrowUpRight,
-  Building2,
   Calendar,
   Star,
   Activity

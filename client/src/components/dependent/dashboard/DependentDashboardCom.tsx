@@ -11,7 +11,6 @@ import {
   Shield,
   FileText,
   CheckCircle2,
-  Users,
   Plus,
   X,
   Check

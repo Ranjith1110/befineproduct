@@ -1,16 +1,13 @@
 import {
     CalendarClock,
-    CheckCircle2,
     Clock,
     MapPin,
     AlertCircle,
     Activity,
     ClipboardList,
     TrendingUp,
-    HeartPulse,
     UserCircle,
     ArrowUpRight,
-    Stethoscope
 } from 'lucide-react';
 import { Badge } from '../../ui/Badge';
 import { Button } from '../../ui/Button';

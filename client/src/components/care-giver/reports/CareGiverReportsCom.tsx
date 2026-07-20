@@ -6,7 +6,6 @@ import {
     Upload,
     Download,
     Eye,
-    FolderHeart,
     MoreVertical,
     FilePlus,
     X,
