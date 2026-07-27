@@ -5,7 +5,6 @@ import {
     Calendar,
     Clock,
     MapPin,
-    UserCircle,
     UserPlus,
     ClipboardList,
     AlertCircle,
