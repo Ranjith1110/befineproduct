@@ -7,6 +7,7 @@ import {
     HeartPulse,
     Calendar,
     MapPin,
+    Eye,
     FileText,
     AlertCircle,
     X,

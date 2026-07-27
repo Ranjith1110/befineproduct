@@ -5,77 +5,78 @@ import {
     Calendar,
     Clock,
     MapPin,
-    UserCircle,
-    UserPlus,
     ClipboardList,
-    AlertCircle,
     CheckCircle2,
     Activity,
     X,
     Check,
-    MoreVertical
+    MoreVertical,
+    Building2,
+    UserCircle,
+    AlertCircle,
+    UserPlus
 } from 'lucide-react';
 import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
 import { Badge } from '../../ui/Badge';
 import { Select } from '../../ui/Select';
 
-const mockRequests = [
+const mockGlobalRequests = [
     {
-        id: 'REQ-1042',
+        id: 'REQ-8042',
         patient: 'Eleanor Pena',
-        dependentOf: 'Jane Doe',
         service: 'Skilled Nursing Care',
-        date: 'Jul 21, 2026',
+        date: 'Jul 27, 2026',
         time: '09:00 AM',
         location: 'Koramangala, Bengaluru',
+        provider: 'Apex Healthcare',
+        caregiver: 'Sarah Jenkins',
+        status: 'completed'
+    },
+    {
+        id: 'REQ-8044',
+        patient: 'Alice Smith',
+        service: 'Post-Op Wound Care',
+        date: 'Jul 28, 2026',
+        time: '11:30 AM',
+        location: 'Whitefield, Bengaluru',
+        provider: 'Guardian Home Care',
+        caregiver: null,
+        status: 'assigned'
+    },
+    {
+        id: 'REQ-8047',
+        patient: 'Robert Fox',
+        service: 'Medication Administration',
+        date: 'Jul 29, 2026',
+        time: '02:00 PM',
+        location: 'Jayanagar, Bengaluru',
+        provider: null,
         caregiver: null,
         status: 'pending'
     },
     {
-        id: 'REQ-1043',
-        patient: 'Ralph Edwards',
-        dependentOf: 'Jane Doe',
-        service: 'Physical Therapy',
-        date: 'Jul 22, 2026',
-        time: '11:30 AM',
-        location: 'Indiranagar, Bengaluru',
-        caregiver: 'Michael Chen',
-        status: 'assigned'
-    },
-    {
-        id: 'REQ-1044',
-        patient: 'Alice Smith',
-        dependentOf: 'Self',
-        service: 'Post-Op Wound Care',
-        date: 'Jul 20, 2026',
-        time: '02:00 PM',
-        location: 'Whitefield, Bengaluru',
-        caregiver: 'Sarah Jenkins',
-        status: 'in-progress'
-    },
-    {
-        id: 'REQ-1045',
-        patient: 'Robert Fox',
-        dependentOf: 'Self',
+        id: 'REQ-8049',
+        patient: 'Jane Cooper',
         service: 'Daily Living Assistance',
-        date: 'Jul 19, 2026',
-        time: '08:00 AM',
-        location: 'Jayanagar, Bengaluru',
+        date: 'Jul 30, 2026',
+        time: '10:00 AM',
+        location: 'HSR Layout, Bengaluru',
+        provider: 'Serenity Senior Solutions',
         caregiver: 'Emily Davis',
-        status: 'completed'
+        status: 'in-progress'
     }
 ];
 
-const mockCaregivers = [
-    { label: 'Select a caregiver...', value: '' },
-    { label: 'Sarah Jenkins (Registered Nurse)', value: 'cg-1' },
-    { label: 'Michael Chen (Physical Therapist)', value: 'cg-2' },
-    { label: 'Emily Davis (Care Aide)', value: 'cg-3' },
-    { label: 'Robert Wilson (Registered Nurse)', value: 'cg-4' }
+const providerOptions = [
+    { label: 'Select a Service Provider...', value: '' },
+    { label: 'Apex Healthcare Partners', value: 'prv-1' },
+    { label: 'Guardian Home Care', value: 'prv-2' },
+    { label: 'Serenity Senior Solutions', value: 'prv-3' },
+    { label: 'Vitality Medical Group', value: 'prv-4' }
 ];
 
-const ServiceRequestStatusCom = () => {
+const CareManagerServiceRequestStatusCom = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRequest, setSelectedRequest] = useState<any>(null);
 
@@ -86,10 +87,10 @@ const ServiceRequestStatusCom = () => {
 
     const getStatusBadge = (status: string) => {
         switch (status) {
-            case 'pending': return <Badge variant="warning" className="text-[10px] px-2 py-0.5">Pending Assignment</Badge>;
-            case 'assigned': return <Badge variant="primary" className="text-[10px] px-2 py-0.5">Assigned</Badge>;
-            case 'in-progress': return <Badge variant="success" className="text-[10px] px-2 py-0.5">In Progress</Badge>;
-            case 'completed': return <Badge variant="secondary" className="text-[10px] px-2 py-0.5 text-slate-600">Completed</Badge>;
+            case 'pending': return <Badge variant="warning" className="text-[10px] px-2 py-0.5">Pending Route</Badge>;
+            case 'assigned': return <Badge variant="secondary" className="text-[10px] px-2 py-0.5 text-slate-700">Provider Assigned</Badge>;
+            case 'in-progress': return <Badge variant="primary" className="text-[10px] px-2 py-0.5">In Progress</Badge>;
+            case 'completed': return <Badge variant="success" className="text-[10px] px-2 py-0.5">Completed</Badge>;
             default: return <Badge variant="secondary" className="text-[10px] px-2 py-0.5">Unknown</Badge>;
         }
     };
@@ -99,16 +100,16 @@ const ServiceRequestStatusCom = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-900 font-heading tracking-tight mb-0">
-                        Service Requests & Status
+                        Global Service Requests
                     </h1>
                     <p className="text-xs font-medium text-slate-500 mt-1">
-                        Manage incoming client requests, assign caregivers, and track appointment statuses.
+                        Monitor patient requests, track provider routing, and verify caregiver assignments network-wide.
                     </p>
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="w-56 hidden md:block">
                         <Input
-                            placeholder="Search request ID or patient..."
+                            placeholder="Search by ID or Patient..."
                             leftIcon={<Search size={16} />}
                             className="bg-white border-transparent shadow-sm text-sm h-9"
                         />
@@ -125,8 +126,8 @@ const ServiceRequestStatusCom = () => {
                         <ClipboardList size={20} />
                     </div>
                     <div>
-                        <div className="text-xl font-bold text-slate-800">124</div>
-                        <div className="text-xs font-medium text-slate-500">Total Requests</div>
+                        <div className="text-xl font-bold text-slate-800">1,284</div>
+                        <div className="text-xs font-medium text-slate-500">Total Requests (MTD)</div>
                     </div>
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center gap-3">
@@ -134,8 +135,8 @@ const ServiceRequestStatusCom = () => {
                         <AlertCircle size={20} />
                     </div>
                     <div>
-                        <div className="text-xl font-bold text-slate-800">12</div>
-                        <div className="text-xs font-medium text-slate-500">Pending Assignment</div>
+                        <div className="text-xl font-bold text-slate-800">18</div>
+                        <div className="text-xs font-medium text-slate-500">Pending Routing</div>
                     </div>
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center gap-3">
@@ -143,8 +144,8 @@ const ServiceRequestStatusCom = () => {
                         <Activity size={20} />
                     </div>
                     <div>
-                        <div className="text-xl font-bold text-slate-800">28</div>
-                        <div className="text-xs font-medium text-slate-500">In Progress</div>
+                        <div className="text-xl font-bold text-slate-800">156</div>
+                        <div className="text-xs font-medium text-slate-500">Active / In-Progress</div>
                     </div>
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center gap-3">
@@ -152,8 +153,8 @@ const ServiceRequestStatusCom = () => {
                         <CheckCircle2 size={20} />
                     </div>
                     <div>
-                        <div className="text-xl font-bold text-slate-800">84</div>
-                        <div className="text-xs font-medium text-slate-500">Completed</div>
+                        <div className="text-xl font-bold text-slate-800">1,110</div>
+                        <div className="text-xs font-medium text-slate-500">Completed Successfully</div>
                     </div>
                 </div>
             </div>
@@ -163,15 +164,15 @@ const ServiceRequestStatusCom = () => {
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-slate-50/50 border-b border-slate-100">
-                                <th className="px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Patient & Service</th>
-                                <th className="px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Schedule</th>
-                                <th className="px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Assigned Caregiver</th>
+                                <th className="px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Patient Request</th>
+                                <th className="px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Appointment Schedule</th>
+                                <th className="px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Assigned Teams</th>
                                 <th className="px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
                                 <th className="px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
-                            {mockRequests.map((req) => (
+                            {mockGlobalRequests.map((req) => (
                                 <tr key={req.id} className="hover:bg-slate-50/50 transition-colors group">
                                     <td className="px-4 py-3">
                                         <div className="text-sm font-bold text-slate-900">{req.patient}</div>
@@ -179,7 +180,7 @@ const ServiceRequestStatusCom = () => {
                                         <div className="text-[10px] font-medium text-slate-500 mt-0.5">ID: {req.id}</div>
                                     </td>
                                     <td className="px-4 py-3">
-                                        <div className="flex flex-col gap-1">
+                                        <div className="flex flex-col gap-1.5">
                                             <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
                                                 <Calendar size={12} className="text-slate-400" />
                                                 {req.date}
@@ -188,28 +189,36 @@ const ServiceRequestStatusCom = () => {
                                                 <Clock size={12} className="text-slate-400" />
                                                 {req.time}
                                             </div>
-                                            <div className="flex items-center gap-1.5 text-[10px] font-medium text-slate-500">
-                                                <MapPin size={12} className="text-slate-400" />
-                                                <span className="truncate max-w-[120px]">{req.location}</span>
+                                            <div className="flex items-center gap-1.5 text-[10px] font-medium text-slate-600">
+                                                <MapPin size={12} className="text-slate-400 shrink-0" />
+                                                <span className="truncate max-w-[140px] leading-tight">{req.location}</span>
                                             </div>
                                         </div>
                                     </td>
                                     <td className="px-4 py-3">
-                                        {req.caregiver ? (
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-bold">
-                                                    {req.caregiver.charAt(0)}
+                                        <div className="flex flex-col gap-2">
+                                            {req.provider ? (
+                                                <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
+                                                    <Building2 size={12} className="text-indigo-500" />
+                                                    <span className="truncate max-w-[150px]">{req.provider}</span>
                                                 </div>
-                                                <span className="text-xs font-semibold text-slate-800">{req.caregiver}</span>
-                                            </div>
-                                        ) : (
-                                            <button
-                                                onClick={() => handleManageRequest(req)}
-                                                className="flex items-center gap-1.5 text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded-md hover:bg-amber-100 transition-colors"
-                                            >
-                                                <UserPlus size={12} /> Assign Staff
-                                            </button>
-                                        )}
+                                            ) : (
+                                                <div className="flex items-center gap-1.5 text-[10px] font-bold text-amber-600">
+                                                    <AlertCircle size={12} /> Pending Provider Route
+                                                </div>
+                                            )}
+
+                                            {req.caregiver ? (
+                                                <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-600">
+                                                    <UserCircle size={12} className="text-slate-400" />
+                                                    {req.caregiver}
+                                                </div>
+                                            ) : (
+                                                <div className="flex items-center gap-1.5 text-[10px] font-medium text-slate-400 italic">
+                                                    <UserPlus size={10} /> Staff Unassigned
+                                                </div>
+                                            )}
+                                        </div>
                                     </td>
                                     <td className="px-4 py-3">
                                         {getStatusBadge(req.status)}
@@ -236,7 +245,7 @@ const ServiceRequestStatusCom = () => {
                 </div>
 
                 <div className="p-3 border-t border-slate-100 flex items-center justify-between text-xs font-medium text-slate-500">
-                    <span>Showing 1 to 4 of 124 requests</span>
+                    <span>Showing 1 to 4 of 1,284 requests</span>
                     <div className="flex gap-1">
                         <Button variant="ghost" size="sm" disabled className="h-7 text-xs px-2">Prev</Button>
                         <Button variant="ghost" size="sm" className="bg-primary/10 text-primary h-7 text-xs px-2.5">1</Button>
@@ -255,8 +264,8 @@ const ServiceRequestStatusCom = () => {
                     <div className="fixed inset-y-0 right-0 z-50 w-full md:w-[500px] bg-white shadow-2xl transform transition-transform duration-300 flex flex-col">
                         <div className="flex items-center justify-between p-5 border-b border-slate-100">
                             <div>
-                                <h2 className="text-lg font-bold text-slate-900 tracking-tight">Manage Service Request</h2>
-                                <p className="text-xs font-medium text-slate-500">Update status or assign personnel for {selectedRequest.id}</p>
+                                <h2 className="text-lg font-bold text-slate-900 tracking-tight">Manage Global Request</h2>
+                                <p className="text-xs font-medium text-slate-500">Route and track request {selectedRequest.id}</p>
                             </div>
                             <Button
                                 variant="ghost"
@@ -272,7 +281,7 @@ const ServiceRequestStatusCom = () => {
 
                             <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 grid grid-cols-2 gap-4">
                                 <div>
-                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Patient</div>
+                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Patient Details</div>
                                     <div className="text-sm font-bold text-slate-800">{selectedRequest.patient}</div>
                                 </div>
                                 <div>
@@ -280,11 +289,11 @@ const ServiceRequestStatusCom = () => {
                                     <div className="text-sm font-bold text-primary">{selectedRequest.service}</div>
                                 </div>
                                 <div>
-                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Date & Time</div>
+                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Appt Date & Time</div>
                                     <div className="text-xs font-bold text-slate-700">{selectedRequest.date} at {selectedRequest.time}</div>
                                 </div>
                                 <div>
-                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Location</div>
+                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Service Location</div>
                                     <div className="text-xs font-bold text-slate-700 truncate">{selectedRequest.location}</div>
                                 </div>
                             </div>
@@ -292,20 +301,20 @@ const ServiceRequestStatusCom = () => {
                             <div className="space-y-3">
                                 <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                                     <span className="w-5 h-5 rounded bg-primary/10 text-primary flex items-center justify-center text-[10px]">1</span>
-                                    Caregiver Assignment
+                                    Provider Routing
                                 </h3>
                                 <div className="grid grid-cols-1 gap-3">
                                     <Select
-                                        label="Assign to Caregiver"
-                                        options={mockCaregivers}
-                                        defaultValue={selectedRequest.caregiver ? 'cg-1' : ''}
+                                        label="Assign Service Provider Agency"
+                                        options={providerOptions}
+                                        defaultValue={selectedRequest.provider ? 'prv-1' : ''}
                                     />
                                 </div>
-                                {!selectedRequest.caregiver && (
+                                {!selectedRequest.provider && (
                                     <div className="bg-amber-50 p-3 rounded-lg border border-amber-100 mt-1 flex gap-2">
                                         <AlertCircle size={14} className="text-amber-600 shrink-0 mt-0.5" />
                                         <p className="text-[11px] font-medium text-amber-800">
-                                            This request is currently unassigned. Please select an available caregiver to secure this appointment.
+                                            Select an active agency from the network to fulfill this service request. The agency will then allocate specific staff.
                                         </p>
                                     </div>
                                 )}
@@ -316,16 +325,16 @@ const ServiceRequestStatusCom = () => {
                             <div className="space-y-3">
                                 <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                                     <span className="w-5 h-5 rounded bg-primary/10 text-primary flex items-center justify-center text-[10px]">2</span>
-                                    Update Status
+                                    Update Global Status
                                 </h3>
                                 <div className="grid grid-cols-1 gap-3">
                                     <Select
-                                        label="Current Status"
+                                        label="System Status"
                                         defaultValue={selectedRequest.status}
                                         options={[
-                                            { label: 'Pending Assignment', value: 'pending' },
-                                            { label: 'Assigned', value: 'assigned' },
-                                            { label: 'In Progress', value: 'in-progress' },
+                                            { label: 'Pending Provider Route', value: 'pending' },
+                                            { label: 'Provider Assigned', value: 'assigned' },
+                                            { label: 'In Progress / Active', value: 'in-progress' },
                                             { label: 'Completed', value: 'completed' },
                                         ]}
                                     />
@@ -338,7 +347,7 @@ const ServiceRequestStatusCom = () => {
                                 Cancel
                             </Button>
                             <Button size="sm" leftIcon={<Check size={16} />}>
-                                Save Updates
+                                Apply Updates
                             </Button>
                         </div>
                     </div>
@@ -348,4 +357,4 @@ const ServiceRequestStatusCom = () => {
     );
 };
 
-export default ServiceRequestStatusCom;
+export default CareManagerServiceRequestStatusCom;

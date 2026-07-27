@@ -11,6 +11,7 @@ import {
   Shield,
   FileText,
   CheckCircle2,
+  Users,
   Plus,
   X,
   Check
@@ -18,6 +19,7 @@ import {
 import { Badge } from '../../ui/Badge';
 import { Button } from '../../ui/Button';
 import { Select } from '../../ui/Select';
+import { Input } from '../../ui/Input';
 
 const mockParentsData: Record<string, any> = {
   'parent-1': {

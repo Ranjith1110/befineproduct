@@ -34,6 +34,13 @@ import CareGiverServiceRequestStatus from '../pages/care-giver/CareGiverServiceR
 import CareGiverAppointments from '../pages/care-giver/CareGiverAppointments';
 import CareGiverReports from '../pages/care-giver/CareGiverReports';
 
+import CareManagerDashboard from '../pages/care-manager/CareManagerDashboard';
+import CareManagerMyServiceProvider from '../pages/care-manager/CareManagerMyServiceProvider';
+import CareManagerServiceRequestStatus from '../pages/care-manager/CareManagerServiceRequestStatus';
+import CareManagerAppointments from '../pages/care-manager/CareManagerAppointments';
+import CareManagerReports from '../pages/care-manager/CareManagerReports';
+import CareManagerBilling from '../pages/care-manager/CareManagerBilling';
+
 export function AppRoutes() {
     return (
         <Routes>
@@ -77,6 +84,14 @@ export function AppRoutes() {
             <Route path="/care-giver/appointments" element={<CareGiverAppointments />} />
             <Route path="/care-giver/reports" element={<CareGiverReports />} />
             
+            {/* Care Manager Routes */}
+            <Route path="/care-manager/dashboard" element={<CareManagerDashboard />} />
+            <Route path="/care-manager/my-service-providers" element={<CareManagerMyServiceProvider />} />
+            <Route path="/care-manager/service-request-status" element={<CareManagerServiceRequestStatus />} />
+            <Route path="/care-manager/appointments" element={<CareManagerAppointments />} />
+            <Route path="/care-manager/reports" element={<CareManagerReports />} />
+            <Route path="/care-manager/billing" element={<CareManagerBilling />} />
+
         </Routes>
     );
 }

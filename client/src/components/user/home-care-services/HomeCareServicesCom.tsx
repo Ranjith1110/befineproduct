@@ -11,6 +11,7 @@ import {
     MapPin,
     CreditCard,
     ArrowRight,
+    Home,
     ShieldCheck
 } from 'lucide-react';
 import { Button } from '../../ui/Button';
