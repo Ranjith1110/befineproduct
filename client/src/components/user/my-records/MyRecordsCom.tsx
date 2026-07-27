@@ -11,7 +11,6 @@ import {
     Pill,
     Stethoscope,
     Microscope,
-    FolderHeart,
     MoreVertical
 } from 'lucide-react';
 import { Button } from '../../ui/Button';
