@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
+
 import OverView from '../pages/super-admin/OverView';
 import Client from '../pages/super-admin/Client';
 import ServicesProviders from '../pages/super-admin/ServicesProviders';
@@ -8,6 +10,7 @@ import SuperAdminBilling from '../pages/super-admin/SuperAdminBilling';
 import OurServices from '../pages/super-admin/OurServices';
 import Subscription from '../pages/super-admin/Subscription';
 import CareManager from '../pages/super-admin/CareManager';
+import Settings from '../pages/super-admin/Settings';
 
 import UserDashboard from '../pages/user/UserDashboard';
 import SponsoredServices from '../pages/user/SponsoredServices';
@@ -41,56 +44,73 @@ import CareManagerAppointments from '../pages/care-manager/CareManagerAppointmen
 import CareManagerReports from '../pages/care-manager/CareManagerReports';
 import CareManagerBilling from '../pages/care-manager/CareManagerBilling';
 
+import Login from '../pages/auth/Login';
+
 export function AppRoutes() {
     return (
         <Routes>
-            {/* Super Admin Routes */}
-            <Route path="/" element={<OverView />} />
-            <Route path="/super-admin/clients" element={<Client />} />
-            <Route path="/super-admin/services-providers" element={<ServicesProviders />} />
-            <Route path="/super-admin/appointments" element={<SuperAdminAppointments />} />
-            <Route path="/super-admin/notification-messages" element={<NotificationMessages />} />
-            <Route path="/super-admin/billing" element={<SuperAdminBilling />} />
-            <Route path="/super-admin/our-services" element={<OurServices />} />
-            <Route path="/super-admin/subscription" element={<Subscription />} />
-            <Route path="/super-admin/care-manager" element={<CareManager />} />
+            <Route path="/" element={<Login />} />
 
-            {/* User Routes */}
-            <Route path="/user/dashboard" element={<UserDashboard />} />
-            <Route path="/user/sponsored-services" element={<SponsoredServices />} />
-            <Route path="/user/care-services" element={<CareServices />} />
-            <Route path="/user/home-care-services" element={<HomeCareServices />} />
-            <Route path="/user/my-records" element={<MyRecords />} />
-            
-            {/* Dependent Routes */}
-            <Route path="/dependent/dashboard" element={<DependentDashboard />} />
-            <Route path="/dependent/parents-sponsored-services" element={<ParentsSponsoredServices />} />
-            <Route path="/dependent/parents-care-services" element={<ParentsCareServices />} />
-            <Route path="/dependent/parents-home-care-services" element={<ParentsHomeCareServices />} />
-            <Route path="/dependent/my-parent-records" element={<MyParentRecords />} />
-            
-            {/* Service Provider Routes */}
-            <Route path="/service-provider/dashboard" element={<ServiceProviderDashboard />} />
-            <Route path="/service-provider/my-caregiver" element={<MyCareGiver />} />
-            <Route path="/service-provider/service-requests-status" element={<ServiceProviderServiceRequestStatus />} />
-            <Route path="/service-provider/appointments" element={<ServiceProviderAppointments />} />
-            <Route path="/service-provider/reports" element={<ServiceProviderReports />} />
-            <Route path="/service-provider/billing" element={<ServiceProviderBilling />} />
+            {/* SUPER ADMIN ROUTES */}
+            <Route element={<ProtectedRoute allowedRoles={['ADMIN', 'SUPERADMIN']} />}>
+                <Route path="/super-admin/overview" element={<OverView />} />
+                <Route path="/super-admin/clients" element={<Client />} />
+                <Route path="/super-admin/services-providers" element={<ServicesProviders />} />
+                <Route path="/super-admin/appointments" element={<SuperAdminAppointments />} />
+                <Route path="/super-admin/notification-messages" element={<NotificationMessages />} />
+                <Route path="/super-admin/billing" element={<SuperAdminBilling />} />
+                <Route path="/super-admin/our-services" element={<OurServices />} />
+                <Route path="/super-admin/subscription" element={<Subscription />} />
+                <Route path="/super-admin/care-manager" element={<CareManager />} />
+                <Route path="/super-admin/settings" element={<Settings />} />
+            </Route>
 
-            {/* Care Giver Routes */}
-            <Route path="/care-giver/dashboard" element={<CareGiverDashboard />} />
-            <Route path="/care-giver/my-clients" element={<MyClients />} />
-            <Route path="/care-giver/service-request-status" element={<CareGiverServiceRequestStatus />} />
-            <Route path="/care-giver/appointments" element={<CareGiverAppointments />} />
-            <Route path="/care-giver/reports" element={<CareGiverReports />} />
-            
-            {/* Care Manager Routes */}
-            <Route path="/care-manager/dashboard" element={<CareManagerDashboard />} />
-            <Route path="/care-manager/my-service-providers" element={<CareManagerMyServiceProvider />} />
-            <Route path="/care-manager/service-request-status" element={<CareManagerServiceRequestStatus />} />
-            <Route path="/care-manager/appointments" element={<CareManagerAppointments />} />
-            <Route path="/care-manager/reports" element={<CareManagerReports />} />
-            <Route path="/care-manager/billing" element={<CareManagerBilling />} />
+            {/* USER / CLIENT ROUTES */}
+            <Route element={<ProtectedRoute allowedRoles={['USER', 'CLIENT']} />}>
+                <Route path="/user/dashboard" element={<UserDashboard />} />
+                <Route path="/user/sponsored-services" element={<SponsoredServices />} />
+                <Route path="/user/care-services" element={<CareServices />} />
+                <Route path="/user/home-care-services" element={<HomeCareServices />} />
+                <Route path="/user/my-records" element={<MyRecords />} />
+            </Route>
+
+            {/* DEPENDENT ROUTES */}
+            <Route element={<ProtectedRoute allowedRoles={['DEPENDENT']} />}>
+                <Route path="/dependent/dashboard" element={<DependentDashboard />} />
+                <Route path="/dependent/parents-sponsored-services" element={<ParentsSponsoredServices />} />
+                <Route path="/dependent/parents-care-services" element={<ParentsCareServices />} />
+                <Route path="/dependent/parents-home-care-services" element={<ParentsHomeCareServices />} />
+                <Route path="/dependent/my-parent-records" element={<MyParentRecords />} />
+            </Route>
+
+            {/* SERVICE PROVIDER ROUTES */}
+            <Route element={<ProtectedRoute allowedRoles={['PROVIDER', 'SERVICE_PROVIDER', 'PROVIDERADMIN']} />}>
+                <Route path="/service-provider/dashboard" element={<ServiceProviderDashboard />} />
+                <Route path="/service-provider/my-caregiver" element={<MyCareGiver />} />
+                <Route path="/service-provider/service-requests-status" element={<ServiceProviderServiceRequestStatus />} />
+                <Route path="/service-provider/appointments" element={<ServiceProviderAppointments />} />
+                <Route path="/service-provider/reports" element={<ServiceProviderReports />} />
+                <Route path="/service-provider/billing" element={<ServiceProviderBilling />} />
+            </Route>
+
+            {/* CARE GIVER ROUTES */}
+            <Route element={<ProtectedRoute allowedRoles={['CAREGIVER', 'CARE_GIVER']} />}>
+                <Route path="/care-giver/dashboard" element={<CareGiverDashboard />} />
+                <Route path="/care-giver/my-clients" element={<MyClients />} />
+                <Route path="/care-giver/service-request-status" element={<CareGiverServiceRequestStatus />} />
+                <Route path="/care-giver/appointments" element={<CareGiverAppointments />} />
+                <Route path="/care-giver/reports" element={<CareGiverReports />} />
+            </Route>
+
+            {/* CARE MANAGER ROUTES */}
+            <Route element={<ProtectedRoute allowedRoles={['CAREMANAGER', 'CARE_MANAGER']} />}>
+                <Route path="/care-manager/dashboard" element={<CareManagerDashboard />} />
+                <Route path="/care-manager/my-service-providers" element={<CareManagerMyServiceProvider />} />
+                <Route path="/care-manager/service-request-status" element={<CareManagerServiceRequestStatus />} />
+                <Route path="/care-manager/appointments" element={<CareManagerAppointments />} />
+                <Route path="/care-manager/reports" element={<CareManagerReports />} />
+                <Route path="/care-manager/billing" element={<CareManagerBilling />} />
+            </Route>
 
         </Routes>
     );

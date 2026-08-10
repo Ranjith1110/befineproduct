@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
     LayoutDashboard,
     Building2,
@@ -6,9 +6,12 @@ import {
     Calendar,
     FileText,
     Receipt,
-    X
+    X,
+    Settings, // <-- Added Settings icon
+    LogOut    // <-- Added LogOut icon
 } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { logoutApi } from '../../api/auth'; // Ensure this path matches your project structure
 
 const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/care-manager/dashboard' },
@@ -17,6 +20,7 @@ const menuItems = [
     { name: 'Appointments', icon: Calendar, path: '/care-manager/appointments' },
     { name: 'Reports', icon: FileText, path: '/care-manager/reports' },
     { name: 'Billing', icon: Receipt, path: '/care-manager/billing' },
+    { name: 'Settings', icon: Settings, path: '/care-manager/settings' }, // <-- Added Settings route
 ];
 
 interface SidebarProps {
@@ -25,6 +29,21 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
+    const navigate = useNavigate();
+
+    // Dynamically fetch the logged-in user's data from sessionStorage
+    const userInfoStr = sessionStorage.getItem('userInfo');
+    const user = userInfoStr ? JSON.parse(userInfoStr) : null;
+    const displayName = user ? `${user.firstName}` : 'Care Manager';
+    const roleDisplay = user?.roles?.includes('CAREMANAGER') || user?.roles?.includes('CARE_MANAGER')
+        ? 'Care Manager'
+        : 'System Admin';
+
+    const handleLogout = async () => {
+        await logoutApi();
+        navigate('/'); // Redirect to the login page
+    };
+
     return (
         <>
             {isOpen && (
@@ -57,12 +76,12 @@ export function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
                 </div>
 
                 <div className="px-5 py-3 flex items-center gap-3 mb-1">
-                    <div className="w-[40px] h-[40px] rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-primary font-bold text-lg">
-                        M
+                    <div className="w-[40px] h-[40px] rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold text-lg shrink-0">
+                        {displayName.charAt(0)}
                     </div>
-                    <div className="flex flex-col">
-                        <span className="text-[14px] font-semibold text-slate-800 tracking-tight truncate w-36">Care Manager</span>
-                        <span className="text-[11px] font-bold text-primary">System Admin</span>
+                    <div className="flex flex-col overflow-hidden">
+                        <span className="text-[14px] font-semibold text-slate-800 tracking-tight truncate">{displayName}</span>
+                        <span className="text-[11px] font-bold text-primary truncate">{roleDisplay}</span>
                     </div>
                 </div>
 
@@ -96,6 +115,17 @@ export function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
                         );
                     })}
                 </nav>
+
+                {/* Logout Button Section */}
+                <div className="p-4 border-t border-slate-100 bg-slate-50/50">
+                    <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-rose-600 hover:bg-rose-50 hover:text-rose-700 font-semibold transition-all duration-200 border border-transparent hover:border-rose-100"
+                    >
+                        <LogOut size={16} strokeWidth={2.5} />
+                        <span className="text-[13px]">Log Out</span>
+                    </button>
+                </div>
             </aside>
         </>
     );
