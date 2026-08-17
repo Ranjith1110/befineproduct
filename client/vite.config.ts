@@ -10,9 +10,9 @@ export default defineConfig({
       // Whenever your frontend makes a request starting with /api, 
       // Vite will forward it to your backend domain.
       '/api': {
-        target: 'https://api.befinehealthcare.com',
+        target: process.env.VITE_API_PROXY_TARGET || 'http://localhost:3000',
         changeOrigin: true,
-        secure: false, // Set to false if you encounter SSL certificate issues locally
+        secure: false,
       }
     }
   }

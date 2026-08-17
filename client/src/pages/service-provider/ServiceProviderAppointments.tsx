@@ -1,4 +1,4 @@
-import AppointmentsCom from "../../components/service-provider/appointments/ServiceProviderAppointmentsCom"
+import AppointmentsCom from "../../features/appointments/components/ServiceProviderAppointmentsCom"
 import { ServiceProviderLayout } from "../../layouts/ServiceProviderLayout"
 
 

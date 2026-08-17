@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Sidebar } from '../components/super-admin/Sidebar';
-import { Navbar } from '../components/super-admin/Navbar';
+import { Sidebar } from '../features/super-admin/components/Sidebar';
+import { Navbar } from '../features/super-admin/components/Navbar';
 
 interface SuperAdminLayoutProps {
     children: React.ReactNode;

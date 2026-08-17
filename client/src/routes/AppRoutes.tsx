@@ -1,16 +1,17 @@
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
+import PublicRoute from './PublicRoute';
 
-import OverView from '../pages/super-admin/OverView';
-import Client from '../pages/super-admin/Client';
-import ServicesProviders from '../pages/super-admin/ServicesProviders';
-import SuperAdminAppointments from '../pages/super-admin/SuperAdminAppointments';
-import NotificationMessages from '../pages/super-admin/NotificationMessages';
-import SuperAdminBilling from '../pages/super-admin/SuperAdminBilling';
-import OurServices from '../pages/super-admin/OurServices';
-import Subscription from '../pages/super-admin/Subscription';
-import CareManager from '../pages/super-admin/CareManager';
-import Settings from '../pages/super-admin/Settings';
+import OverView from '../features/super-admin/pages/OverView';
+import Client from '../features/super-admin/pages/Client';
+import ServicesProviders from '../features/super-admin/pages/ServicesProviders';
+import SuperAdminAppointments from '../features/super-admin/pages/SuperAdminAppointments';
+import NotificationMessages from '../features/super-admin/pages/NotificationMessages';
+import SuperAdminBilling from '../features/super-admin/pages/SuperAdminBilling';
+import OurServices from '../features/super-admin/pages/OurServices';
+import Subscription from '../features/super-admin/pages/Subscription';
+import CareManager from '../features/super-admin/pages/CareManager';
+import Settings from '../features/super-admin/pages/Settings';
 
 import UserDashboard from '../pages/user/UserDashboard';
 import SponsoredServices from '../pages/user/SponsoredServices';
@@ -44,12 +45,13 @@ import CareManagerAppointments from '../pages/care-manager/CareManagerAppointmen
 import CareManagerReports from '../pages/care-manager/CareManagerReports';
 import CareManagerBilling from '../pages/care-manager/CareManagerBilling';
 
-import Login from '../pages/auth/Login';
+import Login from '../features/auth/pages/Login';
 
 export function AppRoutes() {
     return (
         <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<PublicRoute><Login /></PublicRoute>} />
+            <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
 
             {/* SUPER ADMIN ROUTES */}
             <Route element={<ProtectedRoute allowedRoles={['ADMIN', 'SUPERADMIN']} />}>

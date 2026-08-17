@@ -11,7 +11,7 @@ import {
     LogOut    // <-- Added LogOut icon
 } from 'lucide-react';
 import { Button } from '../ui/Button';
-import { logoutApi } from '../../api/auth'; // Ensure this path matches your project structure
+import { logoutApi } from '../../features/auth/api/authApi'; // Ensure this path matches your project structure
 
 const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/care-manager/dashboard' },

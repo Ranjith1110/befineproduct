@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { isAuthenticated, getUserRole } from '../api/auth';
+import { isAuthenticated, getUserRole } from '../features/auth/api/authApi';
 
 interface ProtectedRouteProps {
     children?: React.ReactNode;

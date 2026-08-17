@@ -1,5 +1,5 @@
 import { CareGiverLayout } from '../../layouts/CareGiverLayout'
-import CareGiverAppointmentsCom from '../../components/care-giver/appointments/CareGiverAppointmentsCom'
+import CareGiverAppointmentsCom from '../../features/appointments/components/CareGiverAppointmentsCom'
 
 const CareGiverAppointments = () => {
     return (

@@ -1,4 +1,4 @@
-import CareManagerAppointmentsCom from "../../components/care-manager/appointments/CareManagerAppointmentsCom"
+import CareManagerAppointmentsCom from "../../features/appointments/components/CareManagerAppointmentsCom"
 import { CareManagerLayout } from "../../layouts/CareManagerLayout"
 
 
